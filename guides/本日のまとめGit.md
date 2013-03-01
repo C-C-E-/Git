@@ -140,7 +140,16 @@ pickをedit
 ####差分ファイル抽出
 	$ git archive --format=zip --prefix=projectname/ HEAD `git diff --name-only <commit>` -o archive.zip
 	
+	##filterで検索
+	##A:追加、M:更新、C:(HEADの全て)、 R:(HEADの全て)、D:(削除ファイルを探すのでエラーが起きる)
+	##[ARCR]削除したファイルの差分は追わない。[AM]のみでも同じ挙動。
+	$ git archive --format=zip --prefix=projectname/ HEAD `git diff --diff-filter=AMCR --name-only <commit>` -o archive.zip
+	
 **TODO:**  
 deleteファイルがあるとエラーを起こすので引き続き調査が必要
+
+**追記:** 	
+deleteファイルがある場合 --diff-filter=AMCR（または--diff-filter=AM）で削除ファイルを差分対象から外すと抽出可能。
+
 
 以上が、今日の内容だと思います。
